@@ -1,8 +1,8 @@
 <template>
-  <v-app>
+  <v-app style="background-color: #e6e6c1">
     <v-app-bar
       app
-      color="green darken-3"
+      color="primary"
       dark
     >
       <div class="d-flex align-center">
