@@ -30,6 +30,17 @@
                   <v-col>
                     <v-card style="background-color: #f5f5d5">
                       <v-card-title>
+                        Contact:
+                      </v-card-title>
+                      <v-card-text>
+                        (801) 812 - 1173
+                        <br/>
+                        email@email.com
+                      </v-card-text>
+                    </v-card>
+                    <br/>
+                    <v-card style="background-color: #f5f5d5">
+                      <v-card-title>
                         Hours:
                       </v-card-title>
                       <v-card-text>
@@ -69,6 +80,33 @@
               </v-card-text>
             </v-tab-item>
             <v-tab-item>
+              <v-card-text v-for="item in items" :key="item.number">
+                <v-card style="background-color: #f5f5d5">
+                  <v-card-title @click="item.show = !item.show">{{ item.chinese }} - {{ item.name }}:</v-card-title>
+                  <v-expand-transition>
+                    <div v-show="item.show">
+                      <v-divider></v-divider>
+                      <v-list style="background-color: #f2f2dc" dense>
+                        <v-list-item-group
+                            v-model="selectedItem"
+                            color="secondary"
+                        >
+                        <v-list-item
+                            v-for="(current, i) in item.children"
+                            :key="i"
+                        >
+                          <v-list-item-content>
+                            <v-list-item-title>{{ current.number }} - {{ current.name }}</v-list-item-title>
+                            <v-list-item-subtitle>{{ current.price }}</v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+                        </v-list-item-group>
+                      </v-list>
+                    </div>
+                  </v-expand-transition>
+                </v-card>
+              </v-card-text>
+
               <div id="SS274102vv7SLxIbu-anchor" class="ssWidgetBox ss-block text-container" style="background-color: rgb(3, 78, 47); font-family: Tahoma; position: relative; top: 0px; left: 0px;"><div class="widget-container type-text normal" id="SS274102vv7SLxIbu" style="display: block;"><div class="title-bar" style="color: rgb(255, 255, 255); border-color: rgb(177, 232, 175);"><img class="widget-title-icon" style="display:none;"><span class="widget-title">Menu</span><div class="navigation"><span class="close" onclick=""></span></div></div><div class="loading-text" style="position: relative; text-align: center; top: 0px; left: 0px; display: none;">Loading...</div><div class="widget-instance ui-gdTextSS274102vv7SLxIbu ui-gdText" id="SS274102vv7SLxIbu-text-normal" style="top: 0px; left: 0px; color: rgb(255, 255, 255);"><div class="ui-gdText-container" style="color: rgb(255, 255, 255);">
 
 
@@ -337,7 +375,31 @@ Drinks…………………………...….$1.95<br>
     name: 'Main',
 
     data: () => ({
-      tab: 0
+      tab: 0,
+      show: false,
+      selectedItem: {},
+      items: [
+        {
+          id: 1, name: 'Soup', chinese: '湯類', show: false, children: [
+            { name: 'Wonton Soup', number: 1, price: '$6.75', hot: false, category: 'soup' },
+            { name: 'Egg Drop Soup', number: 2, price: '$4.95', hot: false, category: 'soup' },
+            { name: 'Hot & Sour Soup', number: 3, price: '$4.95', hot: true, category: 'soup' },
+            { name: 'Assorted Vegetable Soup', number: 4, price: '$4.95', hot: false, category: 'soup' },
+            { name: 'House Seafood Soup', number: 5, price: '$7.50', hot: false, category: 'soup' },
+          ]
+        },
+        {
+          id: 2, name: 'Appetizers', show: false, children: [
+            { name: 'Steamed Spring Rolls (3)', number: 6, price: '$5.45', hot: false, category: 'appetizers' },
+            { name: 'Egg Rolls (4)', number: 7, price: '$4.45', hot: false, category: 'appetizers' },
+            { name: 'Fried Cheese Wontons (10)', number: 8, price: '$4.95', hot: false, category: 'appetizers' },
+            { name: 'Meat Wontons (10)', number: 9, price: '$5.45', hot: false, category: 'appetizers' },
+            { name: 'Deep Fried Jumbo Shrimp (5)', number: 10, price: '$6.95', hot: false, category: 'appetizers' },
+            { name: 'BBQ Pork', number: 11, price: '$6.95', hot: false, category: 'appetizers' },
+            { name: 'Pot Stickers (6)', number: 12, price: '$4.95', hot: false, category: 'appetizers' },
+          ]
+        }
+      ]
     }),
   }
 </script>
